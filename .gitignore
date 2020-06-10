@@ -4,3 +4,6 @@ winBin/*
 wslBin/*
 linuxBin/*
 macBin/*
+
+# An intentionally ignored directory
+ignore/*

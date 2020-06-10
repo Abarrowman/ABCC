@@ -1,7 +1,8 @@
-cmake_minimum_required(VERSION 3.0.0)
+cmake_minimum_required(VERSION 3.1.0)
 project(abcc)
 enable_language(C)
-set(C_STANDARD 11)
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD_REQUIRED ON)
 
 set (CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
@@ -11,6 +12,9 @@ add_executable(abcc ${ABCC_SOURCES})
 
 # Compiler specific
 if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+  # stop complaining about using fopen instead of fopen_s
+  add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+
   # Hide Console
   # set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup")
 endif()

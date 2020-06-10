@@ -5,4 +5,4 @@ script:
     - cd bin
     - cmake ..
     - make
-    - ./abcc
+    - ./abcc -h
