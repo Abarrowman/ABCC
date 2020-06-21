@@ -6,10 +6,6 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 
 set (CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
-# Declare main executable
-file(GLOB ABCC_SOURCES src/*.c)
-add_executable(abcc ${ABCC_SOURCES})
-
 # Compiler specific
 if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
   # stop complaining about using fopen instead of fopen_s
@@ -19,6 +15,11 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
   # set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup")
 endif()
 
-# Interface libraries with main executable
-target_include_directories(abcc PUBLIC src)
-target_link_libraries(abcc)
+file(GLOB ABCC_LIB_SOURCES src/lib/*.c)
+include_directories(abcc PUBLIC src/lib)
+
+# Declare main executable
+add_executable(abcc ${ABCC_LIB_SOURCES} src/exec/abcc.c)
+
+# Declare test executable
+add_executable(abcc-test ${ABCC_LIB_SOURCES} ${ABCC_TEST_SOURCES} src/test/abcc_test.c)

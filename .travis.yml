@@ -6,3 +6,4 @@ script:
     - cmake ..
     - make
     - ./abcc -h
+    - ./abcc-test
